@@ -62,6 +62,10 @@ namespace Texteditor
 
                     startIndex += wordStartIndex + word.Length;
                 }
+                if (startIndex == 0)
+                {
+                    MessageBox.Show("Keine Übereinstimmungen gefunden!");
+                }
             }
         }
 
