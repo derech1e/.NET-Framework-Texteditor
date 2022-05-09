@@ -43,7 +43,7 @@ namespace Texteditor
         {
             // Reset selection
             clearSelection();
-            
+
             var wordsToSearch = textBoxSearch.Text.Split(',');
             foreach (var word in wordsToSearch)
             {
@@ -97,7 +97,7 @@ namespace Texteditor
             }
             catch (IOException exception)
             {
-                // Catch exceptions for basic versioning
+                // Catch exceptions for IO errors
                 MessageBox.Show(exception.Message, "Fehler!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -113,7 +113,17 @@ namespace Texteditor
             saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
-            textBox.SaveFile(saveFileDialog.FileName);
+            try
+            {
+                textBox.SaveFile(saveFileDialog.FileName);
+            }
+            catch (IOException exception)
+            {
+                // Catch exceptions for IO errors
+                MessageBox.Show(exception.Message, "Fehler!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             _filePath = saveFileDialog.FileName;
             speichernToolStripMenuItem.Enabled = true;
             MessageBox.Show("Gespeichert!");
@@ -122,7 +132,7 @@ namespace Texteditor
         private void btnClear_Click(object sender, EventArgs e)
         {
             textBoxSearch.Clear();
-            
+
             // Reset selection
             clearSelection();
         }
@@ -136,7 +146,18 @@ namespace Texteditor
             };
 
             if (openFileDialog.ShowDialog() != DialogResult.OK) return;
-            textBox.LoadFile(openFileDialog.FileName);
+            
+            try
+            {
+                textBox.LoadFile(openFileDialog.FileName);
+            }
+            catch (IOException exception)
+            {
+                // Catch exceptions for IO errors
+                MessageBox.Show(exception.Message, "Fehler!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             _filePath = openFileDialog.FileName;
             _version = 0;
             speichernToolStripMenuItem.Enabled = false; // To prevent overwriting of existing files
