@@ -18,6 +18,6 @@
 
 ## Screenshots
 
-!![menubar](.assets/menubar.png)
-!![search](.assets/search.png)
-!![replace](.assets/replace.png)
+![menubar](.assets/MenuBar.png)
+![search](.assets/Search.png)
+![replace](.assets/Replace.png)
